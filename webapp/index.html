@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sourcing Approval Dashboard</title>
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+	<style>
+		#loading {
+			padding: 20px;
+			font-family: sans-serif;
+			text-align: center;
+			color: #666;
+		}
+	</style>
+	<script id="sap-ui-bootstrap" src="https://ui5.sap.com/resources/sap-ui-core.js"
+		onerror="document.getElementById('loading').innerHTML = '<strong>Error:</strong> Failed to load SAP UI5 from CDN.<br>Please check your internet connection or firewall settings.<br>URL: https://ui5.sap.com/resources/sap-ui-core.js';"
+		data-sap-ui-theme="sap_fiori_3" data-sap-ui-libs="sap.m, sap.uxap, sap.ui.layout, sap.ui.unified, sap.viz"
+		data-sap-ui-resourceroots='{
+			"sourcing.dashboard": "./"
+		}' data-sap-ui-oninit="module:sap/ui/core/ComponentSupport" data-sap-ui-compatVersion="edge"
+		data-sap-ui-async="true">
+		</script>
+</head>
+
+<body class="sapUiBody" id="content">
+	<div id="loading">Loading Sourcing Approval Dashboard...</div>
+	<div data-sap-ui-component data-name="sourcing.dashboard" data-id="container"
+		data-settings='{"id" : "sourcing.dashboard"}'></div>
+</body>
+
+</html>

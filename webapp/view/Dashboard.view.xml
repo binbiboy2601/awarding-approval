@@ -1,0 +1,177 @@
+<mvc:View
+    controllerName="sourcing.dashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:core="sap.ui.core">
+
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showHeaderContent="true">
+
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectTitle="{rfq>/header/projectName}" objectSubtitle="{rfq>/header/rfqId}">
+                <uxap:actions>
+                    <OverflowToolbarButton icon="sap-icon://search" text="Search" tooltip="Global Search" />
+                    <OverflowToolbarButton icon="sap-icon://bell" text="Notifications" tooltip="Notifications">
+                        <customData>
+                            <BadgeCustomData key="badge" value="3" visible="true" />
+                        </customData>
+                    </OverflowToolbarButton>
+                    <OverflowToolbarButton icon="sap-icon://person-placeholder" text="User Profile" tooltip="User Profile" />
+                </uxap:actions>
+                <uxap:breadCrumbsLinks>
+                    <Link text="Apps" />
+                    <Link text="Approval Worklist" />
+                </uxap:breadCrumbsLinks>
+            </uxap:ObjectPageHeader>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <layout:VerticalLayout>
+                <ObjectStatus title="Status" text="{rfq>/header/status}" state="{rfq>/header/statusState}" />
+                <ObjectAttribute title="Created By" text="{rfq>/header/createdBy}" />
+                <ObjectAttribute title="Created At" text="{rfq>/header/createdAt}" />
+            </layout:VerticalLayout>
+            <layout:VerticalLayout>
+                 <ObjectAttribute title="Total Items" text="{rfq>/header/totalItems}" />
+                 <ObjectAttribute title="Currency" text="{rfq>/header/currency}" />
+            </layout:VerticalLayout>
+        </uxap:headerContent>
+
+        <uxap:sections>
+
+            <!-- SECTION 1: General Information -->
+            <uxap:ObjectPageSection title="General Information">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <form:SimpleForm editable="false" layout="ResponsiveGridLayout" title="Project Metadata" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12">
+                            <form:content>
+                                <Label text="Project Name" />
+                                <Text text="{rfq>/header/projectName}" />
+                                <Label text="Request Type" />
+                                <Text text="{rfq>/header/type}" />
+                                <Label text="ID" />
+                                <Text text="{rfq>/header/rfqId}" />
+                                <Label text="Description" />
+                                <Text text="Procurement for Q1 2026 IT Equipment refresh cycle." />
+                            </form:content>
+                        </form:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 2: RFQ Overview -->
+            <uxap:ObjectPageSection title="RFQ Overview">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Key Metrics">
+                        <layout:Grid defaultSpan="XL3 L3 M6 S12">
+                            <GenericTile header="Invited" subheader="Suppliers" press="press">
+                                <TileContent>
+                                    <NumericContent value="{rfq>/metrics/invited}" icon="sap-icon://supplier" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile header="Responded" subheader="Suppliers">
+                                <TileContent>
+                                    <NumericContent value="{rfq>/metrics/responded}" icon="sap-icon://response" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile header="Savings" subheader="{rfq>/header/currency}">
+                                <TileContent>
+                                    <NumericContent value="{rfq>/metrics/savings}" valueColor="Good" indicator="Up" icon="sap-icon://money-bills" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile header="Coverage" subheader="Awarded Items">
+                                <TileContent>
+                                    <NumericContent value="{rfq>/metrics/awardedItemsCount}" icon="sap-icon://accept" />
+                                </TileContent>
+                            </GenericTile>
+                        </layout:Grid>
+                    </uxap:ObjectPageSubSection>
+                    
+                     <uxap:ObjectPageSubSection title="Financial Summary">
+                        <form:SimpleForm editable="false" layout="ResponsiveGridLayout">
+                            <form:content>
+                                <Label text="Target Budget" />
+                                <ObjectNumber number="{rfq>/metrics/targetBudget}" unit="{rfq>/header/currency}" />
+
+                                <Label text="Total Quotation Value" />
+                                <ObjectNumber number="{rfq>/metrics/totalQuotationValue}" unit="{rfq>/header/currency}" />
+                                
+                                <Label text="Estimated Savings" />
+                                <ObjectStatus text="{rfq>/metrics/savings} ({rfq>/metrics/savingsPercent})" state="Success" />
+                            </form:content>
+                        </form:SimpleForm>
+                     </uxap:ObjectPageSubSection>
+
+                    <uxap:ObjectPageSubSection title="Supplier Competitiveness Analysis">
+                        <layout:VerticalLayout width="100%">
+                            <Text text="{rfq>/competitivenessAnalysis/text}" class="sapUiSmallMarginBottom" />
+                            
+                            <!-- V2: VizFrame Implementation -->
+                             <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+                                height="400px" width="100%" vizType="bar">
+                                <viz:dataset>
+                                    <viz.data:FlattenedDataset data="{rfq>/competitiveness}">
+                                        <viz.data:dimensions>
+                                            <viz.data:DimensionDefinition name="Supplier" value="{rfq>supplierName}" />
+                                        </viz.data:dimensions>
+                                        <viz.data:measures>
+                                            <viz.data:MeasureDefinition name="Total Value" value="{rfq>value}" />
+                                        </viz.data:measures>
+                                    </viz.data:FlattenedDataset>
+                                </viz:dataset>
+                                <viz:feeds>
+                                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Total Value" />
+                                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Supplier" />
+                                </viz:feeds>
+                            </viz:VizFrame>
+
+                            <MessageStrip text="{rfq>/competitivenessAnalysis/recommendation}" type="Information" showIcon="true" class="sapUiMediumMarginTop" />
+                        </layout:VerticalLayout>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- SECTION 3: Awarding Decision -->
+            <uxap:ObjectPageSection title="Awarding Decision">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <Table items="{rfq>/quotations}" mode="None" popinLayout="GridSmall">
+                            <columns>
+                                <Column width="3rem"><Text text="" /></Column>
+                                <Column><Text text="Supplier" /></Column>
+                                <Column hAlign="End"><Text text="Net Value" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Date" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Fully Quoted" /></Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Best Price" /></Column>
+                                <Column hAlign="Center"><Text text="Awarding Items" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <CheckBox selected="{rfq>selected}" editable="false" />
+                                        <ObjectIdentifier title="{rfq>supplierName}" text="{rfq>id}" />
+                                        <ObjectNumber number="{rfq>netValue}" unit="{rfq>currency}" />
+                                        <Text text="{rfq>date}" />
+                                        <ObjectStatus text="{rfq>fullyQuoted}" state="{= ${rfq>fullyQuoted} === '45/45' ? 'Success' : 'None'}" />
+                                        <ObjectStatus text="{rfq>bestPrice}" state="{= ${rfq>bestPrice} !== '0/45' ? 'Success' : 'Warning'}" />
+                                        
+                                        <!-- Interactive Awarding Indicator V2 -->
+                                        <HBox justifyContent="Center" alignItems="Center">
+                                            <Link text="{rfq>awardedItems}" press=".onPressAwardingItems" emphasized="{rfq>awarded}"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

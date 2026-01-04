@@ -1,0 +1,129 @@
+{
+  "header": {
+    "rfqId": "RFQ-2026-8901",
+    "projectName": "Global IT Equipment Sourcing Q1",
+    "status": "Pending Approval",
+    "statusState": "Warning",
+    "type": "Standard RFQ",
+    "createdBy": "Sarah Jenkins (Global Procurement Lead)",
+    "createdAt": "2026-01-02",
+    "totalItems": 45,
+    "currency": "USD"
+  },
+  "metrics": {
+    "invited": 8,
+    "responded": 5,
+    "selected": 2,
+    "savings": "125,000.00",
+    "targetBudget": "1,200,000.00",
+    "totalQuotationValue": "1,075,000.00",
+    "totalAwardedValue": "1,075,000.00",
+    "savingsPercent": "10.4%",
+    "awardedItemsCount": 45
+  },
+  "competitiveness": [
+    {
+      "supplierName": "TechSource Solutions",
+      "value": 1150000,
+      "displayValue": "1.15M"
+    },
+    {
+      "supplierName": "Global Hardware Inc.",
+      "value": 1075000,
+      "displayValue": "1.08M"
+    },
+    {
+      "supplierName": "Office Supply Co.",
+      "value": 1300000,
+      "displayValue": "1.30M"
+    },
+    {
+      "supplierName": "FastTrack IT",
+      "value": 1100000,
+      "displayValue": "1.10M"
+    },
+    {
+      "supplierName": "MegaByte Systems",
+      "value": 1250000,
+      "displayValue": "1.25M"
+    }
+  ],
+  "competitivenessAnalysis": {
+    "text": "The spread between the highest and lowest bid is approximately 17%. 'Global Hardware Inc.' offers the most competitive pricing overall, primarily driven by lower unit costs on Laptops and Peripherals.",
+    "recommendation": "Recommendation is to award the bulk of the contract to 'Global Hardware Inc.' to maximize savings, while keeping 'FastTrack IT' as a backup for specific regions."
+  },
+  "quotations": [
+    {
+      "id": "Q-8001",
+      "supplierName": "Global Hardware Inc.",
+      "netValue": "1,075,000.00",
+      "currency": "USD",
+      "date": "2026-01-10",
+      "fullyQuoted": "45/45",
+      "bestPrice": "38/45",
+      "awardedItems": "45/45",
+      "selected": true,
+      "awarded": true,
+      "items": [
+        { "name": "Laptop Model X1", "status": "Awarded", "awarded": true },
+        { "name": "Monitor 27 inch", "status": "Awarded", "awarded": true },
+        { "name": "Docking Station", "status": "Awarded", "awarded": true }
+      ]
+    },
+    {
+      "id": "Q-8002",
+      "supplierName": "FastTrack IT",
+      "netValue": "1,100,000.00",
+      "currency": "USD",
+      "date": "2026-01-11",
+      "fullyQuoted": "45/45",
+      "bestPrice": "5/45",
+      "awardedItems": "0/45",
+      "selected": false,
+      "awarded": false,
+      "items": [
+        { "name": "Laptop Model X1", "status": "Not Awarded", "awarded": false },
+        { "name": "Monitor 27 inch", "status": "Not Awarded", "awarded": false }
+      ]
+    },
+    {
+      "id": "Q-8003",
+      "supplierName": "TechSource Solutions",
+      "netValue": "1,150,000.00",
+      "currency": "USD",
+      "date": "2026-01-12",
+      "fullyQuoted": "42/45",
+      "bestPrice": "2/45",
+      "awardedItems": "0/45",
+      "selected": false,
+      "awarded": false,
+      "items": []
+    },
+    {
+      "id": "Q-8004",
+      "supplierName": "MegaByte Systems",
+      "netValue": "1,250,000.00",
+      "currency": "USD",
+      "date": "2026-01-12",
+      "fullyQuoted": "45/45",
+      "bestPrice": "0/45",
+      "awardedItems": "0/45",
+      "selected": false,
+      "awarded": false,
+      "items": []
+    },
+    {
+      "id": "Q-8005",
+      "supplierName": "Office Supply Co.",
+      "netValue": "1,300,000.00",
+      "currency": "USD",
+      "date": "2026-01-13",
+      "fullyQuoted": "40/45",
+      "bestPrice": "0/45",
+      "awardedItems": "0/45",
+      "selected": false,
+      "awarded": false,
+      "items": []
+    }
+  ]
+}

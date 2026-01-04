@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		title="Awarding Decision Details"
+		class="sapUiPopupWithPadding"
+		placement="Auto"
+		contentWidth="300px">
+		<content>
+			<List items="{rfq>items}">
+				<StandardListItem
+					title="{rfq>name}"
+					info="{rfq>status}"
+					infoState="{= ${rfq>awarded} ? 'Success' : 'None' }"
+					icon="{= ${rfq>awarded} ? 'sap-icon://accept' : 'sap-icon://decline' }" />
+			</List>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Text text="View-only: Proposed awarding decision" />
+                <ToolbarSpacer/>
+                <Button text="Close" press=".onClosePopover" />
+			</Toolbar>
+		</footer>
+	</ResponsivePopover>
+</core:FragmentDefinition>
